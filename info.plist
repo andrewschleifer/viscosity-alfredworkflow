@@ -93,6 +93,6 @@ end alfred_script
 		</dict>
 	</dict>
 	<key>webaddress</key>
-	<string></string>
+	<string>github.com/andrewschleifer/viscosity-alfredworkflow</string>
 </dict>
 </plist>
