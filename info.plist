@@ -30,13 +30,14 @@
 			<key>config</key>
 			<dict>
 				<key>argumenttype</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>escaping</key>
 				<integer>63</integer>
 				<key>keyword</key>
 				<string>vpn</string>
 				<key>script</key>
 				<string>FILTER="{query}"
+if [ -z "$FILTER" ]; then FILTER=.;fi
 echo '&lt;?xml version="1.0"?&gt;&lt;items&gt;'
 
 osascript -sh connections.ascr | tr "\r" "\n" | grep -i $FILTER | while read LINE; do echo "&lt;item uid=\"none\" arg=\"${LINE}\"&gt;&lt;title&gt;${LINE}&lt;/title&gt;&lt;subtitle&gt;Toggle Connection&lt;/subtitle&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;valid&gt;yes&lt;/valid&gt;&lt;/item&gt;"; done
