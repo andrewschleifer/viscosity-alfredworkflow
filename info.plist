@@ -39,7 +39,7 @@
 				<string>FILTER="{query}"
 echo '&lt;?xml version="1.0"?&gt;&lt;items&gt;'
 
-osascript -sh connections.ascr | tr "\r" "\n" | grep -i $FILTER | while read LINE; do echo "&lt;item uid=\"none\" arg=\"${LINE}\"&gt;&lt;title&gt;${LINE}&lt;/title&gt;&lt;subtitle&gt;&lt;/subtitle&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;valid&gt;yes&lt;/valid&gt;&lt;/item&gt;"; done
+osascript -sh connections.ascr | tr "\r" "\n" | grep -i $FILTER | while read LINE; do echo "&lt;item uid=\"none\" arg=\"${LINE}\"&gt;&lt;title&gt;${LINE}&lt;/title&gt;&lt;subtitle&gt;Toggle Connection&lt;/subtitle&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;valid&gt;yes&lt;/valid&gt;&lt;/item&gt;"; done
 
 echo '&lt;/items&gt;'
 </string>
