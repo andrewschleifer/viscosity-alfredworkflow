@@ -40,7 +40,13 @@
 if [ -z "$FILTER" ]; then FILTER=.;fi
 echo '&lt;?xml version="1.0"?&gt;&lt;items&gt;'
 
-osascript -sh connections.ascr | tr "\r" "\n" | grep -i $FILTER | while read LINE; do echo "&lt;item uid=\"none\" arg=\"${LINE}\"&gt;&lt;title&gt;${LINE}&lt;/title&gt;&lt;subtitle&gt;Toggle Connection&lt;/subtitle&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;valid&gt;yes&lt;/valid&gt;&lt;/item&gt;"; done
+STAMP=$(date +%s)
+
+osascript -sh connections.ascr | tr "\r" "\n" | grep -i $FILTER | while read LINE; do echo "&lt;item uid=\"${STAMP}\" arg=\"${LINE}\"&gt;&lt;title&gt;${LINE}&lt;/title&gt;&lt;subtitle&gt;Toggle this connection&lt;/subtitle&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;valid&gt;yes&lt;/valid&gt;&lt;/item&gt;"; done
+
+echo '&lt;item uid="'${STAMP}'" arg="connectall"&gt;&lt;title&gt;Connect All&lt;/title&gt;&lt;subtitle&gt;Connect to all defined networks&lt;/subtitle&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;valid&gt;yes&lt;/valid&gt;&lt;/item&gt;'
+
+echo '&lt;item uid="'${STAMP}'" arg="disconnectall"&gt;&lt;title&gt;Disconnect All&lt;/title&gt;&lt;subtitle&gt;Disconnect from all connected networks&lt;/subtitle&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;valid&gt;yes&lt;/valid&gt;&lt;/item&gt;'
 
 echo '&lt;/items&gt;'
 </string>
@@ -64,11 +70,17 @@ echo '&lt;/items&gt;'
 				<key>applescript</key>
 				<string>on alfred_script(query)
 	tell application "Viscosity"
-			set s to state of first connection where name = query
-			if s is equal to "Connected" then
-				disconnect query
+			if query = "connectall" then
+				connectall
+			else if query = "disconnectall" then
+				disconnectall
 			else
-				connect query
+				set s to state of first connection where name = query
+				if s is equal to "Connected" then
+					disconnect query
+				else
+					connect query
+				end if
 			end if
 	end tell
 end alfred_script
