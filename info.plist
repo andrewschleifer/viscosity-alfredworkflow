@@ -43,10 +43,6 @@ FILTER="{query}"
 if [ -z "$FILTER" ]; then FILTER=.;fi
 echo '&lt;?xml version="1.0"?&gt;&lt;items&gt;'
 
-echo '&lt;item uid="'${STAMP}'" arg="connectall"&gt;&lt;title&gt;Connect All&lt;/title&gt;&lt;subtitle&gt;Connect to all defined networks&lt;/subtitle&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;valid&gt;yes&lt;/valid&gt;&lt;/item&gt;'
-
-echo '&lt;item uid="'${STAMP}'" arg="disconnectall"&gt;&lt;title&gt;Disconnect All&lt;/title&gt;&lt;subtitle&gt;Disconnect from all connected networks&lt;/subtitle&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;valid&gt;yes&lt;/valid&gt;&lt;/item&gt;'
-
 osascript -sh connections.ascr | tr "\r" "\n" | grep -i $FILTER | while read LINE; do
     echo "&lt;item uid=\"${STAMP}\" arg=\"${LINE}\"&gt;&lt;title&gt;${LINE}&lt;/title&gt;"
     if [[ $(osascript -sh state.ascr "${LINE}" | tr "\r" "\n" | grep -i .) == "Connected" ]]; then
@@ -56,6 +52,10 @@ osascript -sh connections.ascr | tr "\r" "\n" | grep -i $FILTER | while read LIN
     fi
     echo "&lt;icon&gt;icon.png&lt;/icon&gt;&lt;valid&gt;yes&lt;/valid&gt;&lt;/item&gt;"
 done
+
+echo '&lt;item uid="'${STAMP}'" arg="connectall"&gt;&lt;title&gt;Connect All&lt;/title&gt;&lt;subtitle&gt;Connect to all defined networks&lt;/subtitle&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;valid&gt;yes&lt;/valid&gt;&lt;/item&gt;'
+
+echo '&lt;item uid="'${STAMP}'" arg="disconnectall"&gt;&lt;title&gt;Disconnect All&lt;/title&gt;&lt;subtitle&gt;Disconnect from all connected networks&lt;/subtitle&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;valid&gt;yes&lt;/valid&gt;&lt;/item&gt;'
 
 echo '&lt;/items&gt;'
 </string>
