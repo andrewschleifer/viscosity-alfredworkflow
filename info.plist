@@ -22,6 +22,8 @@
 	<string>Various Artists</string>
 	<key>description</key>
 	<string>Control OpenVPN connections</string>
+	<key>disabled</key>
+	<false/>
 	<key>name</key>
 	<string>Viscosity</string>
 	<key>objects</key>
@@ -45,7 +47,15 @@ echo '&lt;item uid="'${STAMP}'" arg="connectall"&gt;&lt;title&gt;Connect All&lt;
 
 echo '&lt;item uid="'${STAMP}'" arg="disconnectall"&gt;&lt;title&gt;Disconnect All&lt;/title&gt;&lt;subtitle&gt;Disconnect from all connected networks&lt;/subtitle&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;valid&gt;yes&lt;/valid&gt;&lt;/item&gt;'
 
-osascript -sh connections.ascr | tr "\r" "\n" | grep -i $FILTER | while read LINE; do echo "&lt;item uid=\"${STAMP}\" arg=\"${LINE}\"&gt;&lt;title&gt;${LINE}&lt;/title&gt;&lt;subtitle&gt;Toggle this connection&lt;/subtitle&gt;&lt;icon&gt;icon.png&lt;/icon&gt;&lt;valid&gt;yes&lt;/valid&gt;&lt;/item&gt;"; done
+osascript -sh connections.ascr | tr "\r" "\n" | grep -i $FILTER | while read LINE; do
+    echo "&lt;item uid=\"${STAMP}\" arg=\"${LINE}\"&gt;&lt;title&gt;${LINE}&lt;/title&gt;"
+    if [[ $(osascript -sh state.ascr "${LINE}" | tr "\r" "\n" | grep -i .) == "Connected" ]]; then
+        echo "&lt;subtitle&gt;Disconnect from this network&lt;/subtitle&gt;"
+    else
+        echo "&lt;subtitle&gt;Connect to this network&lt;/subtitle&gt;"
+    fi
+    echo "&lt;icon&gt;icon.png&lt;/icon&gt;&lt;valid&gt;yes&lt;/valid&gt;&lt;/item&gt;"
+done
 
 echo '&lt;/items&gt;'
 </string>
