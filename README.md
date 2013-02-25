@@ -3,8 +3,8 @@ Viscosity Workflow for Alfred
 =============================
 
 This is a workflow for [Alfred.app](http://www.alfredapp.com/) that
-works with [Viscosity](http://www.sparklabs.com/viscosity/), which
-you can use to control OpenVPN connections.
+works with [Viscosity](http://www.sparklabs.com/viscosity/) to control
+OpenVPN connections.
 
 The configured keyword is `vpn`. That will show all of your configured
 networks initially, and autocompletes (case-insensitively) on the
