@@ -2,7 +2,7 @@
 Viscosity Workflow for Alfred
 =============================
 
-This is a workflow for [Alfred.app](http://www.alfredapp.com/) that
+This is a workflow for [Alfred](http://www.alfredapp.com/) that
 works with [Viscosity](http://www.sparklabs.com/viscosity/) to control
 OpenVPN connections.
 
