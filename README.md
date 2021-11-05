@@ -18,7 +18,9 @@ all VPN endpoints you've defined.
 
 ![Screenshot](viscosity.png)
 
-Here's one way to import this workflow into Alfred:
+
+
+# how to install
 `  git clone https://github.com/andrewschleifer/viscosity-alfredworkflow.git $HOME/Library/Application\ Support/Alfred/Alfred.alfredpreferences/workflows/viscosity
 `
 
